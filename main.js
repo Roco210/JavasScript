@@ -11,7 +11,7 @@ const maceta =new Producto(1,"maceta 5 lts", 1000)
 const sustrato=new Producto(2,"sustrato ligero 25dm",2200)
 const  fertilizante=new Producto(3,"fertilizante completo",800)
 const insecticida=new Producto(4,"insecticida",500)
-
+//Esta funcion sirve para sumar productos al carrito y almacena los items y el valor total de la compra
 function agregarCarrito (){
     choise=parseInt(prompt(`Elija un producto: ${maceta.id}. ${maceta.nombre},${sustrato.id}. ${sustrato.nombre}, ${fertilizante.id}. ${fertilizante.nombre},${insecticida.id}. ${insecticida.nombre}`))
     while(seguirComprando===true){
@@ -40,6 +40,7 @@ function agregarCarrito (){
         }
     }
 }
+//esta funcion le da la opcion al comprador determinar el metodo de pago a elegir y devuelve un Alert con el resumen de la compra
 function cuotas(){
     modoDePago = parseInt(prompt(`tu total es ${total}, como deseas pagarlo 1. efectivo 10% de descuento-${total*0.9},2.en un pago por trasnferencia o tarjeta ${total} 3. 3 cuotas sin interes de ${total/3}, 4. 12 cuotas con interes de${(total*1.5)/12}.`))
         if (modoDePago===1){
@@ -57,6 +58,7 @@ function cuotas(){
     alert(`Usted acaba de comprar ${carrito}, por un total de: $${total} su metodo de pago es:${pagos}`)
 }
 
+//inicio del programa
 
 let carrito = " "
 let total =0
@@ -65,3 +67,4 @@ let pagos
 
 agregarCarrito()
 cuotas()
+alert("Muchas gracias por su compra vuelva pronto")
