@@ -3,30 +3,29 @@ class Producto{
     constructor(id,nombre,precio,cantidadComprada){
         this.id=id,
         this.nombre=nombre,
-        this.precio=precio,
-        this.cantidadComprada=cantidadComprada
+        this.precio=precio
     }
 }
 
-const maceta =new Producto(1,"maceta 5 lts", 1000,0)
-const sustrato=new Producto(2,"sustrato ligero 25dm",2200,0)
-const  fertilizante=new Producto(3,"fertilizante completo",800,0)
-const insecticida=new Producto(4,"insecticida",500,0)
+const maceta =new Producto(1,"maceta 5 lts", 1000)
+const sustrato=new Producto(2,"sustrato ligero 25dm",2200)
+const  fertilizante=new Producto(3,"fertilizante completo",800)
+const insecticida=new Producto(4,"insecticida",500)
 
 function agregarCarrito (){
+    choise=parseInt(prompt(`Elija un producto: ${maceta.id}. ${maceta.nombre},${sustrato.id}. ${sustrato.nombre}, ${fertilizante.id}. ${fertilizante.nombre},${insecticida.id}. ${insecticida.nombre}`))
     while(seguirComprando===true){
-        choise=parseInt(prompt(`Elija un producto: ${maceta.id}. ${maceta.nombre},${sustrato.id}. ${sustrato.nombre}, ${fertilizante.id}. ${fertilizante.nombre},${insecticida.id}. ${insecticida.nombre}`))
         if (choise===maceta.id){
-            carrito=carrito + maceta.nombre+" "
+            carrito=carrito + maceta.nombre+", "
             total= total+ maceta.precio
         }else if (choise===sustrato.id){
-            carrito=carrito + sustrato.nombre+" "
+            carrito=carrito + sustrato.nombre+", "
             total= total+ sustrato.precio
         }else if (choise===fertilizante.id){
-            carrito=carrito + fertilizante.nombre+" "
+            carrito=carrito + fertilizante.nombre+", "
             total= total+ fertilizante.precio
         }else if (choise===insecticida.id){
-            carrito=carrito + insecticida.nombre+" "
+            carrito=carrito + insecticida.nombre+", "
             total= total+ insecticida.precio
         }else{
             choise=prompt("Por favor ingresa un producto correcto")
