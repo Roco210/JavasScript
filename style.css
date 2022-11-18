@@ -1,0 +1,25 @@
+#titulo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: red;
+    height: 120px;
+    background-color: bisque;
+}
+#producto{
+    display: flex;
+    justify-content: center;
+
+}
+img{
+    height: 250px;
+}
+
+#finalizar{
+    margin: 10px;
+    
+}
+.btn{
+    display: flex;
+    align-content:space-between
+}

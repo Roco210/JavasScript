@@ -1,70 +1,89 @@
-
-class Producto{
-    constructor(id,nombre,precio,cantidadComprada){
-        this.id=id,
-        this.nombre=nombre,
-        this.precio=precio
+//creacion de clase
+class Producto {
+    constructor(id, nombre, precio, imagen, cantidad) {
+        this.id = id,
+            this.nombre = nombre,
+            this.precio = precio,
+            this.imagen = imagen,
+            this.cantidad = cantidad
     }
 }
+//creacion de objetos
+const maceta = new Producto(1, "maceta 5 lts", 1000, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKStZsebgqXi6Oxry4FdHiiqSNQg7KPrz4Jw&usqp=CAU", 10)
+const sustrato = new Producto(2, "sustrato ligero 25dm", 2200, " https://http2.mlstatic.com/D_NQ_NP_863283-MLA43259201302_082020-W.jpg", 10)
+const fertilizante = new Producto(3, "fertilizante completo", 800, " https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnc021QXFS6JuYvhUzEJczjWKz4IlS4_p2zA&usqp=CAU", 10)
+const insecticida = new Producto(4, "insecticida", 500, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAljp23Kld9LQa4HaeUC68qHSIBOtrrY_-jw&usqp=CAU ", 10)
+// array de objetos
 
-const maceta =new Producto(1,"maceta 5 lts", 1000)
-const sustrato=new Producto(2,"sustrato ligero 25dm",2200)
-const  fertilizante=new Producto(3,"fertilizante completo",800)
-const insecticida=new Producto(4,"insecticida",500)
-//Esta funcion sirve para sumar productos al carrito y almacena los items y el valor total de la compra
-function agregarCarrito (){
-    choise=parseInt(prompt(`Elija un producto: ${maceta.id}. ${maceta.nombre},${sustrato.id}. ${sustrato.nombre}, ${fertilizante.id}. ${fertilizante.nombre},${insecticida.id}. ${insecticida.nombre}`))
-    while(seguirComprando===true){
-        if (choise===maceta.id){
-            carrito=carrito + maceta.nombre+", "
-            total= total+ maceta.precio
-        }else if (choise===sustrato.id){
-            carrito=carrito + sustrato.nombre+", "
-            total= total+ sustrato.precio
-        }else if (choise===fertilizante.id){
-            carrito=carrito + fertilizante.nombre+", "
-            total= total+ fertilizante.precio
-        }else if (choise===insecticida.id){
-            carrito=carrito + insecticida.nombre+", "
-            total= total+ insecticida.precio
-        }else{
-            choise=prompt("Por favor ingresa un producto correcto")
-        }
-        decision = parseInt(prompt("desea sieguir comprando 1.Si 2.No"))
-        if(decision===1){
-            choise = parseInt(prompt(`Elija un producto: ${maceta.id}. ${maceta.nombre},${sustrato.id}. ${sustrato.nombre}, ${fertilizante.id}. ${fertilizante.nombre},${insecticida.id}. ${insecticida.nombre}`))
-        }else if(decision===2){
-            seguirComprando=false
-        }else{
-            decision=parseInt(prompt("desea sieguir comprando 1.Si 2.No"))
-        }
+let stock = []
+stock.push(maceta)
+stock.push(sustrato)
+stock.push(fertilizante)
+stock.push(insecticida)
+
+// interaccion con el DOM principal
+
+let titulo = document.getElementById("titulo")
+titulo.innerText = "BIENVENIDO A LA TIENDA ONLINE"
+
+let card = document.getElementById("producto")
+stock.forEach(p => {
+    card.innerHTML += `
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <img src="${p.imagen}" class="card-img-top" alt="...">
+        <h5 class="card-title">${p.nombre}</h5>
+        <p class="card-text"> $ ${p.precio} </p>
+        <button id= "${p.id}" type="button" class="btn btn-danger">AGREGAR AL CARRITO</button>
+    </div>
+</div>`
+})
+
+let a = 0
+let b
+let carrito = []
+let finalizar = document.getElementById("finalizar")
+let cuerpo =document.getElementById("tarjeta")
+let body=document.getElementById("cuerpo")
+//selecciona productos y los guarda en el carrito, y el tottal de lo comprado
+function d(){
+    card.onclick=(e)=>{
+        let ip=parseInt((e.target.id))
+        let productoEscojido = stock.find(element=>element.id===ip)
+        carrito.push(productoEscojido)
+        a += productoEscojido.precio
+        localStorage.setItem("total", a)
+        
     }
+
 }
-//esta funcion le da la opcion al comprador determinar el metodo de pago a elegir y devuelve un Alert con el resumen de la compra
-function cuotas(){
-    modoDePago = parseInt(prompt(`tu total es ${total}, como deseas pagarlo 1. efectivo 10% de descuento-${total*0.9},2.en un pago por trasnferencia o tarjeta ${total} 3. 3 cuotas sin interes de ${total/3}, 4. 12 cuotas con interes de${(total*1.5)/12}.`))
-        if (modoDePago===1){
-            pagos = "un pago en efectivo de $ "+total*0.9
-        }else if (modoDePago===2){
-            pagos = "un pago de $ "+ total
-        }else if (modoDePago===3){
-            pagos = "3 cuotas de $ " +total/3
-        }else if (modoDePago===4){
-            pagos = "12 cuotas de $"+(total*1.5)/12
-        }else{
-            modoDePago=prompt("Por favor ingresa un metodo de pago correcto")
-            pago=true
-        }
-    alert(`Usted acaba de comprar ${carrito}, por un total de: $${total} su metodo de pago es:${pagos}`)
-}
+//cambia de pantalla a una ventana con los items elegidos y total de compra
+function cerrar (){
+    finalizar.onclick = () => {
+        cuerpo.remove()
+        a=localStorage.getItem("total")
+        console.log(a)
+        body.innerHTML =`
+        <div id="listado"></div>
+        <div id="total"></div>
+        `
+        let divA=document.getElementById("listado")
+        let divB=document.getElementById("total")
+        carrito.forEach(p=>{
+            divA.innerHTML+=`<ul class="h1">${p.nombre} </ul>`
+        })
+        divB.innerHTML+=`<ul class= "h2">Total: ${a}</ul>`
+        console.log(divA)
 
-//inicio del programa
+        localStorage.clear()
+        b = 0
+        a = 0
+        carrit=[]}}
 
-let carrito = " "
-let total =0
-let seguirComprando= true
-let pagos
 
-agregarCarrito()
-cuotas()
-alert("Muchas gracias por su compra vuelva pronto")
+
+
+// evento
+
+d()
+cerrar ()
