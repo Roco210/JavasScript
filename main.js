@@ -9,10 +9,10 @@ class Producto {
     }
 }
 //creacion de objetos
-const maceta = new Producto(1, "maceta 5 lts", 1000, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKStZsebgqXi6Oxry4FdHiiqSNQg7KPrz4Jw&usqp=CAU", 10)
-const sustrato = new Producto(2, "sustrato ligero 25dm", 2200, " https://http2.mlstatic.com/D_NQ_NP_863283-MLA43259201302_082020-W.jpg", 10)
-const fertilizante = new Producto(3, "fertilizante completo", 800, " https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnc021QXFS6JuYvhUzEJczjWKz4IlS4_p2zA&usqp=CAU", 10)
-const insecticida = new Producto(4, "insecticida", 500, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAljp23Kld9LQa4HaeUC68qHSIBOtrrY_-jw&usqp=CAU ", 10)
+const maceta = new Producto(1, "maceta 5 lts", 1000, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKStZsebgqXi6Oxry4FdHiiqSNQg7KPrz4Jw&usqp=CAU", 1)
+const sustrato = new Producto(2, "sustrato ligero 25dm", 2200, " https://http2.mlstatic.com/D_NQ_NP_863283-MLA43259201302_082020-W.jpg", 1)
+const fertilizante = new Producto(3, "fertilizante completo", 800, " https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnc021QXFS6JuYvhUzEJczjWKz4IlS4_p2zA&usqp=CAU", 1)
+const insecticida = new Producto(4, "insecticida", 500, "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAljp23Kld9LQa4HaeUC68qHSIBOtrrY_-jw&usqp=CAU ", 1)
 // array de objetos
 
 let stock = []
@@ -22,9 +22,6 @@ stock.push(fertilizante)
 stock.push(insecticida)
 
 // interaccion con el DOM principal
-
-let titulo = document.getElementById("titulo")
-titulo.innerText = "BIENVENIDO A LA TIENDA ONLINE"
 
 let card = document.getElementById("producto")
 stock.forEach(p => {
@@ -53,7 +50,6 @@ function d(){
         carrito.push(productoEscojido)
         a += productoEscojido.precio
         localStorage.setItem("total", a)
-        
     }
 
 }
@@ -70,18 +66,24 @@ function cerrar (){
         let divA=document.getElementById("listado")
         let divB=document.getElementById("total")
         carrito.forEach(p=>{
-            divA.innerHTML+=`<ul class="h1">${p.nombre} </ul>`
+            console.log(p)
+            divA.innerHTML+=`<p class="h1">=> ${p.nombre} </>`
         })
-        divB.innerHTML+=`<ul class= "h2">Total: ${a}</ul>`
-        console.log(divA)
+        divB.innerHTML+=`<p class= "h2">Total: ${a}</p> 
+        <button id="test" class="btn btn-danger">test classchange</button>`
+        
+        let test =document.getElementById("test")
+        
+        
+        test.onclick=()=>{
+            location.reload()
+        }
 
-        localStorage.clear()
+    localStorage.clear()
         b = 0
         a = 0
-        carrit=[]}}
-
-
-
+        carrit=[]}
+    }
 
 // evento
 

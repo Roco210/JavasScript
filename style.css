@@ -23,3 +23,9 @@ img{
     display: flex;
     align-content:space-between
 }
+
+.card{
+    margin:5px;
+    display: flex;
+    flex-wrap: wrap;
+}
