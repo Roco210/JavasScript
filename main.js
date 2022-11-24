@@ -46,7 +46,6 @@ infobase.forEach(p => {
 })
 
 let a = 0
-let b
 let carrito = []
 let elementos =[]
 let finalizar = document.getElementById("finalizar")
@@ -56,29 +55,31 @@ localStorage.setItem("carrito",JSON.stringify(elementos))
 //selecciona productos y los guarda en el carrito, y el tottal de lo comprado
 function d(){
     card.onclick=(e)=>{
+
         let ip=parseInt((e.target.id))
         let productoEscojido = stock.find(element=>element.id===ip)
         let temp =carrito.includes(productoEscojido)
+        Toastify({
+            text: `${productoEscojido.nombre} sumado al carrito`,
+            duration: 3000,
+            style: {
+                background: "linear-gradient(to right, #00b09b, #96c93d)"
+            }
+            }).showToast();
+        //agrega en el localStorage los productos y la cantidad escogida
         if(temp){
-            let elementos = JSON.parse(localStorage.getItem("carrito"))
+            elementos = JSON.parse(localStorage.getItem("carrito"))
             let temp =elementos.find(e=>e.id===ip)
             temp.cantidad=temp.cantidad+1;
             localStorage.setItem("carrito",JSON.stringify(elementos))
-            console.log(elementos)
-            console.log(temp)
-
+            return elementos
         }else{  
             carrito.push(productoEscojido)
-            localStorage.getItem("carrito",JSON.stringify(elementos))
-            const elemento =  {"id":ip,"nombre":productoEscojido.nombre,"cantidad":1}
+            elementos = JSON.parse(localStorage.getItem("carrito"))
+            let elemento =  {"id":ip,"nombre":productoEscojido.nombre,"cantidad":1}
             elementos.push(elemento)
-            
             localStorage.setItem("carrito",JSON.stringify(elementos))
-            console.log("chau")
         }
-    
-
-        localStorage.setItem(`${productoEscojido.nombre}`,`${productoEscojido.nombre}`)
         a += productoEscojido.precio
         localStorage.setItem("total", a)
     }
@@ -87,22 +88,21 @@ function d(){
 //cambia de pantalla a una ventana con los items elegidos y total de compra
 function cerrar (){
     finalizar.onclick = () => {
-        console.log (carrito)
-        cuerpo.remove()
         a=localStorage.getItem("total")
-        console.log(a)
         body.innerHTML =`
-        <div id="listado"></div>
+        <div id="listado">
+        <h1 id="titulo">CARRITO</h1>
+        </div>
         <div id="total"></div>
         `
         let divA=document.getElementById("listado")
         let divB=document.getElementById("total")
-        carrito.forEach(p=>{
+        elementos.forEach(p=>{
             console.log(p)
-            divA.innerHTML+=`<p class="h1">=> ${p.nombre} </>`
+            divA.innerHTML+=`<p class="h1">=> ${p.nombre} X ${p.cantidad} </p>`
         })
         divB.innerHTML+=`<p class= "h2">Total: ${a}</p> 
-        <button id="test" class="btn btn-danger">test classchange</button>`
+        <button id="test" class="btn btn-danger">Comprar</button>`
         
         let test =document.getElementById("test")
         
